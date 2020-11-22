@@ -38,6 +38,7 @@ gem 'bootstrap-table-rails'
 gem 'rails_admin', '~> 2.0'
 gem 'toastr-rails'
 gem 'jquery-rails'
+gem "figaro"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
