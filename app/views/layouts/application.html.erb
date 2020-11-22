@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NCC Motor</title>
+    <%= csrf_meta_tags %>
+    <%= javascript_pack_tag "application" %>
+    <%= stylesheet_pack_tag "application" %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload" %>
+  </head>
+  <body>
+    <% unless flash.empty? %>
+      <script type="text/javascript">
+        <% flash.each do |f| %>
+            <% type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info') %>
+           	 toastr['<%= type %>']('<%= f[1] %>');
+           <% end %>
+      </script>
+    <% end %>
+    <%= render "layouts/header" %>
+    <div class="container-fluid">
+      <% if user_signed_in? %>
+        <%= render "layouts/leftbar" %>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <%= yield %>
+        </main>
+      <% else %>
+        <main role="main" class="col-md-12 ml-sm-auto col-lg-12 px-md-12">
+          <%= yield %>
+        </main>
+      <% end %>
+    </div>
+  </body>
+</html>

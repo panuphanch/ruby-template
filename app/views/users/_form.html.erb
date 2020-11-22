@@ -1,0 +1,33 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation" class="alert alert-success" role="alert">
+      <h2 class="alert-heading"><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :user_email, :class => "form-control" %>
+  </div>
+  <div class="form-group">
+    <% if @user.email == current_user.email %>
+      <%= form.text_field :password, disabled: true, placeholder: '******', :class => "form-control" %>
+      <%= link_to t('.change_password'), '#', class: 'btn btn-link', data: { toggle: 'modal', target: '#changePasswordModal' } %>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= form.label :role %>
+    <%= select_tag :role, options_for_select(User::ROLES.map {|k, v| [k.humanize.capitalize, v]}), :class => "form-control" %>
+  </div>
+  <div class="form-group form-check">
+    <%= form.check_box :is_active, { :class => "form-check-input" }%>
+    <%= form.label :is_active, :class => "form-check-label" %>
+  </div>
+  <div class="actions">
+    <%= form.submit "Update user", :class => "btn btn-dark" %>
+  </div>
+<% end %>
